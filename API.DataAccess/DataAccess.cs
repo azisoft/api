@@ -7,6 +7,7 @@ using System.IO;
 using API.Common;
 using Newtonsoft.Json;
 using System.Reflection;
+using System;
 
 namespace API.DataAccess
 {
@@ -18,7 +19,8 @@ namespace API.DataAccess
         public DataAccess(IContainer container)
         {
             _diContainer = container;
-            var sJson = File.ReadAllText(Constants.DataAccess.ProviderConfigFile);
+            var path = $"{AppContext.BaseDirectory}\\{Constants.DataAccess.ProviderConfigFile}";
+            var sJson = File.ReadAllText(path);
             _map = JsonConvert.DeserializeObject<Dictionary<string, string>>(sJson);
         }
 

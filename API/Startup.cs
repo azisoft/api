@@ -27,14 +27,22 @@ namespace API
         {
             // Add framework services.
             services.AddMvc();
-
+            
             //using StructureMap;
             var container = new Container();
 
-            container.Populate(services);
+            // add connection string config section
+            container.Configure(config =>
+            {
+                config.For<IConfigurationSection>()
+                    .Add(Configuration.GetSection(Common.Constants.ConnectionStrings))
+                    .Named(Common.Constants.ConnectionStrings);
+            });
 
             // add APP extensions
             container.AddBusiness();
+
+            container.Populate(services);
 
             return container.GetInstance<IServiceProvider>();
         }

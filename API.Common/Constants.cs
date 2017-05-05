@@ -18,10 +18,17 @@ namespace API.Common
             public const string ProviderConfigFile = "ProviderConfig.json";
         }
 
+        public static class SqlEfProvider
+        {
+            public const string TestConnectinoString = "TestConnection";
+        }
+
         public enum DataAccessKey
         {
             NewData
         }
+
+        public const string ConnectionStrings = "ConnectionStrings";
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿using API.Common;
 using API.Common.Interface;
 using API.DataAccess;
-using API.DataAccess.Providers;
+using Microsoft.Extensions.Configuration;
 
 namespace StructureMap
 {
@@ -9,11 +9,13 @@ namespace StructureMap
     {
         public static void AddDataAccess(this Container container)
         {
+            var connStringConfigSection = container.GetInstance<IConfigurationSection>(Constants.ConnectionStrings);
             container.Configure(config =>
             {
                 // Register stuff in container, using the StructureMap APIs...
                 config.For<IExecute>().Add(new DataAccess(container)).Named(Constants.Interface.DataAccess);
-                config.For<IExecute>().Add(new SqlEfProvider()).Named(Constants.Interface.SqlEfProvider);
+                // add providers (lazy load)
+                config.For<IExecute>().Add(_ => new API.DataAccess.Providers.SqlEntityFramework.SqlEfProvider(connStringConfigSection)).Named(Constants.Interface.SqlEfProvider);
             });
         }
     }
