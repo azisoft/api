@@ -6,12 +6,19 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
     <PackageReference Include="StructureMap.Microsoft.DependencyInjection" Version="1.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\API.Common\API.Common.csproj" />
     <ProjectReference Include="..\API.Models\API.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ProviderConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

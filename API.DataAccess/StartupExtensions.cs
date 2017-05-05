@@ -1,9 +1,7 @@
-﻿using API.Common.Interface;
+﻿using API.Common;
+using API.Common.Interface;
 using API.DataAccess;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using API.DataAccess.Providers;
 
 namespace StructureMap
 {
@@ -14,7 +12,8 @@ namespace StructureMap
             container.Configure(config =>
             {
                 // Register stuff in container, using the StructureMap APIs...
-                config.For<IExecute>().Add(new DataAccess()).Named("DataAccess");
+                config.For<IExecute>().Add(new DataAccess(container)).Named(Constants.Interface.DataAccess);
+                config.For<IExecute>().Add(new SqlEfProvider()).Named(Constants.Interface.SqlEfProvider);
             });
         }
     }

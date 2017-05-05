@@ -1,4 +1,5 @@
 ﻿using API.Business;
+using API.Common;
 using API.Common.Interface;
 
 //namespace Microsoft.Extensions.DependencyInjection
@@ -20,13 +21,14 @@ namespace StructureMap
     {
         public static void AddBusiness(this Container container)
         {
+            container.AddDataAccess();
+
             container.Configure(config =>
             {
                 // Register stuff in container, using the StructureMap APIs...
-                config.For<IExecute>().Add(new BusinessAccess()).Named("Business");
+                config.For<IExecute>().Add(new BusinessAccess(container)).Named(Constants.Interface.Business);
             });
 
-            container.AddDataAccess();
         }
     }
 

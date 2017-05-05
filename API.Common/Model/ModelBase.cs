@@ -1,6 +1,7 @@
 ﻿using System;
+using static API.Common.Constants;
 
-namespace API.Common.Interface.Model
+namespace API.Common.Model
 {
     public class ModelBase
     {
@@ -9,6 +10,7 @@ namespace API.Common.Interface.Model
 
     public class KeyBase
     {
-
+        public KeyBase(DataAccessKey key) { Key = key; }
+        public DataAccessKey Key { get; private set; }
     }
 }

@@ -1,26 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StructureMap;
+using API.Common.Interface;
+using API.Common.Model;
+using API.Common;
+using API.Models;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     public class NewController : Controller
     {
-        private IContainer _container;
+        private IExecute _business;
+
         public NewController(IContainer injectedContainer)
         {
-            _container = injectedContainer;
+            _business = injectedContainer.GetInstance<IExecute>(Constants.Interface.Business);
         }
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public NewModel Get()
         {
-            return _container == null ? new string[] { "bad", "value" } : new string[] { "good", "value" };
+            return _business.Execute<ModelBase, KeyBase>(new KeyBase(Constants.DataAccessKey.NewData)) as NewModel;
         }
 
         // GET api/values/5
