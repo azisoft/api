@@ -17,33 +17,35 @@ namespace API.Controllers
             _business = injectedContainer.GetInstance<IExecute>(Constants.Interface.Business);
         }
 
-        // GET api/values
+        // GET api/get
         [HttpGet]
         public NewModel Get()
         {
-            return _business.Execute<ModelBase, KeyBase>(new KeyBase(Constants.DataAccessKey.NewData)) as NewModel;
+            var ret = _business.Execute<ModelBase, KeyBase>(new KeyBase(Constants.DataAccessKey.NewData)) as NewModel;
+            return ret;
         }
 
-        // GET api/values/5
+        // GET api/get/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public NewModel Get(int id)
         {
-            return "value";
+            var ret = _business.Execute<ModelBase, KeyBase>(new KeyBase(Constants.DataAccessKey.NewData)) as NewModel;
+            return ret;
         }
 
-        // POST api/values
+        // POST api/create
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Create([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT api/update/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Update(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/delete/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
